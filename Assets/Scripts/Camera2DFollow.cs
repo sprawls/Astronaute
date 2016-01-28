@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+
 
 public class Camera2DFollow : MonoBehaviour {
 

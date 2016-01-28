@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 
 /// <summary>
@@ -7,9 +6,13 @@ using System.Collections;
 /// </summary>
 public class Attractor : GravityModifier {
 
+    /// <summary> multiplier of force applied from planet's velocity compared to force towards planet </summary>
+    [SerializeField] private float VELOCITY_FORCE_MULT = 0.1f; ///
     [SerializeField] private float FORCE = 1f;
     public float Force { get { return FORCE; } private set { FORCE = value; }}
+
     protected float MIN_DIST_MULTIPLIER = 2f;
+ 
 
     void Start () {
         base.Start();
@@ -28,12 +31,15 @@ public class Attractor : GravityModifier {
         _collider.isTrigger = true;
     }
 
-    public override Vector2 ApplyGravityForce(Attracted planet) {
-        //Get force direction
-        Vector2 forceDirection = transform.position - planet.transform.position; 
-        //Calculate acceleration based on attractor's force and distance
-        Vector2 acc = GRAVITYCONSTANT * (forceDirection.normalized * Force) / (Mathf.Max(forceDirection.sqrMagnitude, MIN_DIST_MULTIPLIER) * planet.Weigth);
-        return acc;
+    public override Vector2 ApplyGravityForce(GravityBody planet) {
+        //Apply force toward Attractor
+        Vector2 forceDirectionAtt = transform.position - planet.transform.position;  //Get force direction
+        Vector2 accAtt = GRAVITYCONSTANT * (forceDirectionAtt.normalized * Force) / (Mathf.Max(forceDirectionAtt.sqrMagnitude, MIN_DIST_MULTIPLIER) * planet.Weigth); //Calculate acceleration based on attractor's force and distance
+        //Apply force toward planet's current velocity
+        Vector2 forceDirectionVel = planet.Velocity;  //Get force direction
+        Vector2 accVel = VELOCITY_FORCE_MULT * accAtt.magnitude * forceDirectionVel.normalized;
+
+        return accAtt + accVel;
     }
 
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// Gravity modifier that repulses Objects affected by gravity that enter it's radius
@@ -7,7 +6,7 @@ using System.Collections;
 public class Repulsor : Attractor {
 
     
-    public override Vector2 ApplyGravityForce(Attracted planet) {
+    public override Vector2 ApplyGravityForce(GravityBody planet) {
         //Get force direction
         Vector2 forceDirection = transform.position - planet.transform.position;
         //Calculate acceleration based on attractor's force and distance

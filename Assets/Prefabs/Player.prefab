@@ -151,7 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractionLevel: 10
   radius: 0.5
-  WEIGTH: 1
   START_VELOCITY: {x: 0.8, y: 1.2}
   currentGravObjects: []
 --- !u!212 &21230548

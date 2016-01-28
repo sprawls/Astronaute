@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// Gravity Objects that modify the behaviour of objects that enter its radius.
@@ -17,6 +16,6 @@ public abstract class GravityModifier : GravityObject {
     /// </summary>
     /// <param name="planet">object affected by this modifier</param>
     /// <returns>force to apply to object</returns>
-    public abstract Vector2 ApplyGravityForce(Attracted planet);
+    public abstract Vector2 ApplyGravityForce(GravityBody planet);
 
 }

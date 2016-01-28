@@ -241,9 +241,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
-  m_Color: {r: 1, g: 0.88965523, b: 0, a: 1}
-  m_Intensity: 3
-  m_Range: 10
+  m_Color: {r: 1, g: 0.93590266, b: 0.41911763, a: 1}
+  m_Intensity: 2
+  m_Range: 30
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -278,7 +278,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractionLevel: 10
   radius: 2
-  FORCE: 1.5
+  VELOCITY_FORCE_MULT: 0.2
+  FORCE: 3
 --- !u!114 &11412534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,8 +292,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attractionLevel: 10
-  radius: 10
-  FORCE: 1
+  radius: 30
+  VELOCITY_FORCE_MULT: 0.01
+  FORCE: 10
 --- !u!198 &19817650
 ParticleSystem:
   m_ObjectHideFlags: 1

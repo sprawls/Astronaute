@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
 /// Object that is affected by all gravity modifier
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class Attracted : GravityObject {
+public class GravityBody : GravityObject {
 
-    [SerializeField] private float WEIGTH = 1f;
-    public float Weigth { get { return WEIGTH; } private set { WEIGTH = value; } }
+    //Getters
+    public float Weigth { get { return _rigidBody.mass; } private set { _rigidBody.mass = value; } }
+    public Vector2 Velocity { get { return _rigidBody.velocity; } private set { _rigidBody.velocity = value; } }
     [SerializeField] private Vector2 START_VELOCITY = Vector2.zero;
 
     
-    private Rigidbody2D _rigidBody;
+    private Rigidbody2D _rigidBody; 
     private int gravityLayerMask;
     private int playerLayerMask;
     public List<GravityModifier> currentGravObjects = new List<GravityModifier>();
