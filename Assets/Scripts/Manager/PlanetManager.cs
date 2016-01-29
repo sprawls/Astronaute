@@ -6,13 +6,8 @@ namespace Simoncouche.Planets {
 	/// <summary>
 	/// Every planets data
 	/// </summary>
-	public class PlanetManager : MonoBehaviour {
-
-		/// <summary>
-		/// Singleton Instance
-		/// </summary>
-		public static PlanetManager Instance;
-
+	public class PlanetManager : Manager<PlanetManager> {
+		
 		/// <summary>
 		/// The planet data for every type of planet
 		/// </summary>
@@ -30,18 +25,12 @@ namespace Simoncouche.Planets {
 		[Tooltip("Planet Object Prefab Reference")]
 		private GameObject _planetComponent;
 
-		void Awake() {
-			if (Instance == null) {
-				Instance = this;
+		public override void Awake() {
+			base.Awake();
+			if (Instance == this) {
 				//Get Planet Data from the editor pref
 				PlanetsCustomEditorWindow.RecalculatePlanetsData();
 				_planetData = PlanetsCustomEditorWindow._planetData;
-			}
-		}
-
-		void OnDestroy() {
-			if (Instance == this) {
-				Instance = null;
 			}
 		}
 
@@ -53,7 +42,7 @@ namespace Simoncouche.Planets {
 		public void HandleChunkCollision(PlanetChunk a, PlanetChunk b) {
 			Planet a_planetLink = ChunkContainedInPlanets(a);
 			Planet b_planetLink = ChunkContainedInPlanets(b);
-
+			
 			//If both are contained in planet
 			if (a_planetLink != null && b_planetLink != null && a_planetLink != b_planetLink) {
 				List<PlanetChunk> chunks = b_planetLink.chunks;
