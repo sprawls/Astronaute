@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Manager<GameManager> {
+
+	public override void Awake() {
+		base.Awake();
+		if (Instance == this) {
+			DontDestroyOnLoad(gameObject);
+		}
+	}
 
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {          
