@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Simoncouche.Planets {
+namespace Simoncouche.Islands {
 	/// <summary>
-	/// The component attached to a planet chunk
+	/// The component attached to a Island chunk
 	/// </summary>
 	[RequireComponent(typeof(CircleCollider2D))]
-	public class PlanetChunk : MonoBehaviour {
+	public class IslandChunk : MonoBehaviour {
 
-		[Header("Planet Property")]
+		[Header("Island Property")]
 
 		/// <summary>
-		/// The Color of the planet
+		/// The Color of the Island
 		/// </summary>
 		[SerializeField]
-		[Tooltip("The Assign color of the planet")]
-		private PlanetUtils.color _color;
+		[Tooltip("The Assign color of the Island")]
+		private IslandUtils.color _color;
 		/// <summary>
 		/// Accessor of _color
 		/// </summary>
-		public PlanetUtils.color color {
+		public IslandUtils.color color {
 			get {
 				return _color;
 			}
@@ -31,11 +31,11 @@ namespace Simoncouche.Planets {
 		/// </summary>
 		[SerializeField]
 		[Tooltip("The associated chunk letter")]
-		private PlanetUtils.ChunkLetter _chunkLetter;
+		private IslandUtils.ChunkLetter _chunkLetter;
 		/// <summary>
 		/// Accessors of _chunkLetter
 		/// </summary>
-		public PlanetUtils.ChunkLetter chunkLetter {
+		public IslandUtils.ChunkLetter chunkLetter {
 			get {
 				return _chunkLetter;
 			}
@@ -58,9 +58,9 @@ namespace Simoncouche.Planets {
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			PlanetChunk chunk = other.GetComponent<PlanetChunk>();
+			IslandChunk chunk = other.GetComponent<IslandChunk>();
 			if (chunk != null && chunk.color == _color) {
-				PlanetManager.Instance.HandleChunkCollision(this, chunk);
+				IslandManager.Instance.HandleChunkCollision(this, chunk);
 			}
 		}
 	}

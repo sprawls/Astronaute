@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Simoncouche.Planets {
+namespace Simoncouche.Islands {
 	/// <summary>
-	/// Useful function and enums for planets
+	/// Useful function and enums for Islands
 	/// </summary>
-	public class PlanetUtils {
+	public class IslandUtils {
 		/// <summary>
-		/// Possible color of planets
+		/// Possible color of Islands
 		/// </summary>
 		public enum color {
 			red,
@@ -16,17 +16,17 @@ namespace Simoncouche.Planets {
 		}
 
 		/// <summary>
-		/// Planet Chunk possible Letters
+		/// Island Chunk possible Letters
 		/// </summary>
 		public enum ChunkLetter { A, B, C, D, E, F, G, H, I, J }
 
 		/// <summary>
-		/// Creates a string from the planet information of a planet
+		/// Creates a string from the Island information of a Island
 		/// </summary>
-		/// <param name="c"> The color of the planet </param>
+		/// <param name="c"> The color of the Island </param>
 		/// <param name="number"> It's numerical value </param>
 		/// <returns> The info in string form </returns>
-		public static string CreateStringWithPlanetInfo(color c, int number) {
+		public static string CreateStringWithIslandInfo(color c, int number) {
 			return c.ToString("g") + " " + number.ToString();
 		}
 	}

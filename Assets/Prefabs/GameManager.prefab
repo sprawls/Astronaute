@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d3b136a18882749a4c46147ba50ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetComponent: {fileID: 185502, guid: 25dee7d767a3ae04aae7b2fd602298ab, type: 2}
+  _islandComponent: {fileID: 185502, guid: 25dee7d767a3ae04aae7b2fd602298ab, type: 2}
 --- !u!114 &11492070
 MonoBehaviour:
   m_ObjectHideFlags: 1

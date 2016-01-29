@@ -1,37 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Simoncouche.Planets {
+namespace Simoncouche.Islands {
 	/// <summary>
-	/// The global planet information, parent to Planet Chunk
+	/// The global Island information, parent to Island Chunk
 	/// </summary>
-	public class Planet : MonoBehaviour {
+	public class Island : MonoBehaviour {
 
 		/// <summary>
-		/// The many part of the planet
+		/// The many part of the Island
 		/// </summary>
-		public List<PlanetChunk> chunks { get; private set; }
+		public List<IslandChunk> chunks { get; private set; }
 
 		void Awake() {
-			chunks = new List<PlanetChunk>();
+			chunks = new List<IslandChunk>();
 		}
 
 		/// <summary>
-		/// Returns if this planet has the target chunk
+		/// Returns if this Island has the target chunk
 		/// </summary>
 		/// <param name="chunk">Target chunk</param>
 		/// <returns>True if it contains the chunk</returns>
-		public bool PlanetContainsChunk(PlanetChunk chunk) {
+		public bool IslandContainsChunk(IslandChunk chunk) {
 			return chunks.Contains(chunk);
 		}
 
 		/// <summary>
-		/// Add a chunk to this planet, used when a chunk collides with a planet
+		/// Add a chunk to this Island, used when a chunk collides with a Island
 		/// </summary>
 		/// <param name="chunk">Reference to the collinding chunk</param>
 		/// <param name="pos">The position of the chunk</param>
 		/// <param name="rot">The rotation of the chunk</param>
-		public void AddChunkToPlanet(PlanetChunk chunk, Vector3 pos, Vector3 rot) {
+		public void AddChunkToIsland(IslandChunk chunk, Vector3 pos, Vector3 rot) {
 			if (!chunks.Contains(chunk)) {
 				chunk.transform.SetParent(transform);
 				chunks.Add(chunk);
@@ -42,12 +42,12 @@ namespace Simoncouche.Planets {
 		}
 
 		/// <summary>
-		/// Changes the velocity of the entire planet based on new fragment
+		/// Changes the velocity of the entire Island based on new fragment
 		/// </summary>
 		/// <param name="chunk"></param>
-		private void ChangeVelocityWhenMerging(PlanetChunk chunk) {
-			Rigidbody2D planet = this.GetComponent<Rigidbody2D>();
-			planet.velocity = (planet.velocity + chunk.GetComponent<Rigidbody2D>().velocity) / 2;
+		private void ChangeVelocityWhenMerging(IslandChunk chunk) {
+			Rigidbody2D Island = this.GetComponent<Rigidbody2D>();
+			Island.velocity = (Island.velocity + chunk.GetComponent<Rigidbody2D>().velocity) / 2;
 			chunk.GetComponent<Rigidbody2D>().isKinematic = true;
 		}
 	}
