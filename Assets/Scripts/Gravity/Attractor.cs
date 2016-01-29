@@ -38,6 +38,7 @@ public class Attractor : GravityModifier {
         //Apply force toward planet's current velocity
         Vector2 forceDirectionVel = planet.Velocity;  //Get force direction
         Vector2 accVel = VELOCITY_FORCE_MULT * accAtt.magnitude * forceDirectionVel.normalized;
+        accVel = Vector2.zero;
 
         return accAtt + accVel;
     }

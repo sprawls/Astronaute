@@ -16,7 +16,7 @@ public class Camera2DFollow : MonoBehaviour {
 	void Update () {
         Vector2 targetDirection = target.position - transform.position;
         Vector2 targetPosition = (Vector2)transform.position + (targetDirection.normalized * targetDirection.magnitude * INTERP_SPEED * Time.deltaTime);
-        Debug.Log(targetPosition);
+        //Debug.Log(targetPosition);
         targetPosition = Vector2.Lerp(transform.position, targetPosition, LERP_SPEED);
         transform.position = new Vector3(targetPosition.x, targetPosition.y, Z_POSITION);
         
