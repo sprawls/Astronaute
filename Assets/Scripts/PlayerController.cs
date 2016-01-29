@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour {
 			tempRotation.z = angle;
 			if (_leftAnalogHorizontal < 0.0f) {
 				tempRotation.z -= 180.0f;
-				Debug.Log("eulerAngles apres: " + _playerSpriteRenderer.transform.eulerAngles);
+				//Debug.Log("eulerAngles apres: " + _playerSpriteRenderer.transform.eulerAngles);
 			}
 			if (!hasRotated) {
 				transform.eulerAngles = tempRotation;
