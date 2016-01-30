@@ -9,22 +9,36 @@ public class GravityBody : GravityObject {
 
     //Getters
     public float Weigth { get { return _rigidBody.mass; } private set { _rigidBody.mass = value; } }
-    public Vector2 Velocity { get { return _rigidBody.velocity; } private set { _rigidBody.velocity = value; } }
+    public Vector2 Velocity { get { return _rigidBody.velocity; } set { _rigidBody.velocity = value; } }
     [SerializeField] private Vector2 START_VELOCITY = Vector2.zero;
 
     
     private Rigidbody2D _rigidBody; 
-    private int gravityLayerMask;
+    private int gravityModifierLayerMask;
     private int playerLayerMask;
+    private int gravityBodyLayerMask;
+    //Collision
+    private float timeNoCollision = 0f;
+    public bool collisionEnabled { get; private set; }
+
     public List<GravityModifier> currentGravObjects = new List<GravityModifier>();
 
 
     override protected void Start () {
         base.Start();
-        gravityLayerMask = 8; //Get gravity layermask
+
+        gravityModifierLayerMask = 8; //Get gravity modifier layermask
         playerLayerMask = 9; //Get player layermask
+        gravityBodyLayerMask = 10; //Get gravity body layermask
+        if (gameObject.layer != playerLayerMask) gameObject.layer = 10;
+        collisionEnabled = true;
+
         SetupRigidbody();
         SetupCollider();
+    }
+
+    void Update() {
+        CheckCollisionEnabled();
     }
 
     void FixedUpdate() {
@@ -32,11 +46,12 @@ public class GravityBody : GravityObject {
         foreach (GravityModifier gravObj in currentGravObjects) {
             Vector2 accelChange = gravObj.ApplyGravityForce(this);
             //Debug.Log("force : " + accelChange + "       by gravObj " + gravObj.name);
-            acceleration += accelChange;
-            
+            acceleration += accelChange;          
         }
         _rigidBody.velocity += acceleration * Time.fixedDeltaTime;
     }
+
+    #region Components Initialization
 
     void SetupRigidbody() {
         //Get Component References
@@ -61,13 +76,15 @@ public class GravityBody : GravityObject {
         if (gameObject.layer != playerLayerMask) _collider.isTrigger = false;
         else _collider.isTrigger = true;
     }
+    #endregion
 
+    #region MonoBehaviour Collision Methods
     /// <summary>
     /// Manages the objects that are within its radius by adding them to the currentGrabOjects list when they collide
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.layer == gravityLayerMask && other.gameObject != gameObject) {
+        if (other.gameObject.layer == gravityModifierLayerMask && other.gameObject != gameObject) {
             GravityModifier gravityObjScript = other.gameObject.GetComponent<GravityModifier>();
             if (gravityObjScript != null) {
                 currentGravObjects.Add(gravityObjScript);
@@ -80,13 +97,50 @@ public class GravityBody : GravityObject {
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.layer == gravityLayerMask) {
+        if (other.gameObject.layer == gravityModifierLayerMask) {
             GravityModifier gravityObjScript = other.gameObject.GetComponent<GravityModifier>();
             if (gravityObjScript != null) {
                 if(currentGravObjects.Contains(gravityObjScript)) currentGravObjects.Remove(gravityObjScript);
             }
         }
     }
+    #endregion
+
+    #region Advanced Collision Functions
+
+    /// <summary>
+    /// Resets the list of current gravity modifier. Used in various cases (ex: When teleporting through wormhole)
+    /// </summary>
+    public void ResetGravityObjects() {
+        currentGravObjects = new List<GravityModifier>();
+    }
 
 
+    /// <summary>
+    /// Checks if collision needs to be reactivated
+    /// </summary>
+    private void CheckCollisionEnabled() {
+        if(!collisionEnabled) {
+            timeNoCollision -= Time.deltaTime;
+            if(timeNoCollision <= 0f) {
+                collisionEnabled = true;
+                timeNoCollision = 0f;
+                _collider.enabled = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Disable the collision for a small amount of time (still affected by gravity)
+    /// </summary>
+    /// <param name="time">time in seconds </param>
+    public void DisableCollision(float time) {
+        if (timeNoCollision < time) timeNoCollision = time;
+        collisionEnabled = false;
+         _collider.enabled = false;
+    }
+
+
+
+    #endregion
 }

@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour {
 			if (_isLookingRight && _leftAnalogHorizontal < 0.0f) {
 				_playerSpriteRenderer.flipY = true;
 				_isLookingRight = false;
-				Debug.Log("eulerAngles avant: " + _playerSpriteRenderer.transform.eulerAngles);
+				//Debug.Log("eulerAngles avant: " + _playerSpriteRenderer.transform.eulerAngles);
 				hasRotated = true;
 			}
 			else if (!_isLookingRight && _leftAnalogHorizontal > 0.0f) {
@@ -202,7 +202,7 @@ public class PlayerController : MonoBehaviour {
 		tempVelocity = Vector3.ClampMagnitude(tempVelocity+ tempAcceleration, maximumVelocity);
 		_playerRigidBody.velocity = tempVelocity;
 
-		
+        //Debug.Log(_playerRigidBody.velocity);
 
 	}
 

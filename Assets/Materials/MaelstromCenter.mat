@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Sun
+  m_Name: MaelstromCenter
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -131,8 +131,8 @@ Material:
       data:
         first:
           name: _EmissionColor
-        second: {r: 1, g: 0.9724138, b: 0, a: 1}
+        second: {r: 0, g: 0.9705882, b: 0.8501015, a: 1}
       data:
         first:
           name: _Color
-        second: {r: 0.9492901, g: 1, b: 0.63235295, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}

@@ -8,7 +8,7 @@ public abstract class GravityModifier : GravityObject {
     // Use this for initialization
     protected virtual void Start() {
         base.Start();
-        if (gameObject.layer != 9) gameObject.layer = 8;
+        if (gameObject.layer != 9) gameObject.layer = 8; //If not player layer, set gravityModifier Layer
     }
 
     /// <summary>
